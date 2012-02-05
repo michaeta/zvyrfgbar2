@@ -1,3 +1,11 @@
 To use:
 
     python run.py < test_cases.txt
+
+Example:
+
+    (if (or true false) (println "True!"))
+    ['if', ['or', 'true', 'false'], ['println', '"True!"']]
+
+    (while true (println "Looping"))
+    ['while', 'true', ['println', '"Looping"']]
