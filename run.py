@@ -8,3 +8,5 @@ for line in fileinput.input():
     print line.rstrip()
     print parser.parse(line)
     print
+
+print parser.global_symbol_table
