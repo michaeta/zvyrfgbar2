@@ -1,0 +1,2 @@
+(if (or true false) (println "True!"))
+(while true (println "Looping"))

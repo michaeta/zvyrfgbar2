@@ -1,9 +1,15 @@
+# Symbol table based of example by Peter Norvig
 class SymbolTable(dict):
     def __init__(self, parms=(), args=(), outer=None):
         self.update(zip(parms,args))
         self.outer = outer
     def find(self, var):
         return self if var in self else self.outer.find(var)
+
+
+def evaluate(expr):
+    # stubbed
+    pass
 
 def op_and(a, b):
     return (a and b)
@@ -13,7 +19,19 @@ def op_or(a, b):
 
 def op_iff(a, b):
     return (((not a) and b) or (a and (not b)))
-        
+
+def op_while(a, b):
+    while a:
+        evaluate(b)
+    return
+
+def op_if(a, b):
+    if (a):
+        evaluate(b)
+    return
+
+def op_let(a, b):
+    pass
 
 def define_globals(symbol_table):
     import math, operator as op
@@ -23,7 +41,7 @@ def define_globals(symbol_table):
       'e':math.exp, 'logn':math.log, 'sin':math.sin, 'cos':math.cos,
       'tan':math.tan, 'real':float, 'string':str, 'bool':bool, 'int':int,
       'true':True, 'false':False, "^":math.pow, 'and':op_and, 'or':op_or,
-      'iff':op_iff})
+      'iff':op_iff, 'while':op_while, 'if':op_if, 'let':op_let})
     return symbol_table
 
 global_symbol_table = define_globals(SymbolTable())
