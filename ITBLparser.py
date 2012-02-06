@@ -1,3 +1,4 @@
+#----- symbol table -----
 # Symbol table based of example by Peter Norvig
 class SymbolTable(dict):
     def __init__(self, parms=(), args=(), outer=None):
@@ -5,12 +6,13 @@ class SymbolTable(dict):
         self.outer = outer
     def find(self, var):
         return self if var in self else self.outer.find(var)
-
+ 
 # not implemented yet
 def evaluate(expr):
     # stubbed
     pass
 
+#----- boolean operations -----
 # returns a and b
 def op_and(a, b):
     return (a and b)
@@ -23,6 +25,7 @@ def op_or(a, b):
 def op_iff(a, b):
     return (((not a) and b) or (a and (not b)))
 
+#----- statements -----
 # println
 def op_println(a):
     print a
@@ -52,8 +55,8 @@ def op_assign(a, b):
 # create sub symbol tables for each statement/expr?
 def op_let(a, b):
     pass
-
-# defines the different 
+    
+# defines the different operators, types, and statements
 def define_globals(symbol_table):
     import math, operator as op
     symbol_table.update(
@@ -68,6 +71,28 @@ def define_globals(symbol_table):
 
 global_symbol_table = define_globals(SymbolTable())
 
+#----- type and var list -----
+#declares var as an int
+def op_dec_int(a, symbol_table):
+    symbol_table.update({a:int})
+    return
+
+#declares var as a real
+def op_dec_real(a, symbol_table):
+    symbol_table.update({a:float})
+    return
+
+#declares var as a string
+def op_dec_string(a, symbol_table):
+    symbol_table.update({a:str})
+    return
+
+#declares var as bool
+def op_dec_bool(a, symbol_table):
+    symbol_table.update({a:bool})
+    return
+
+#----- parse tokenize lex atom -----
 # parse the file!
 def parse(s):
     return lex(tokenize(s))
@@ -100,4 +125,6 @@ def atom(token):
     except ValueError:
         try: return float(token)
         except ValueError:
-            return str(token) 
+            try: return bool(token)
+            except ValueError:
+                return str(token) 
