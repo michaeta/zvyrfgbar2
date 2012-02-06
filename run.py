@@ -1,4 +1,4 @@
-import parser
+import ITBLparser
 import sys
 import fileinput
 
@@ -6,7 +6,7 @@ for line in fileinput.input():
     if line == '\n':
         continue
     print line.rstrip()
-    print parser.parse(line)
-    print
+    print ITBLparser.parse(line)
+    print 
 
-print parser.global_symbol_table
+print ITBLparser.global_symbol_table
